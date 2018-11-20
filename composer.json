@@ -13,7 +13,7 @@
         }
     ],
     "autoload" : {
-        "psr-0" : {"chatopera" : "src/"}
+        "psr-4" : {"chatopera\\" : "src/"}
     },
     "repositories": [
         {
@@ -24,5 +24,8 @@
     "require" : {
         "php": ">=5.3.3"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "^5"
+    }
 }

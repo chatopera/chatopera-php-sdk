@@ -101,14 +101,15 @@ composer require chatopera/sdk
 </p>
 
 
-## 执行程序
+## 执行示例程序
 
 假设您已经准备好**ClientId**和**Secret**了，进入项目路径然后执行下面命令。
 
 ```
-cd chatopera-sample-php
+git clone https://github.com/chatopera/chatopera-php-sdk.git
+cd chatopera-php-sdk
 # 使用 clientId 和 Secret 修改测试文件，并执行 
-php test/chatbot.php
+php test/ChatbotTest.php
 ```
 
 <p align="center">
@@ -130,12 +131,12 @@ php test/chatbot.php
 更多接口介绍请访问[SDK文档]()。
 
 
-## 帮助
+## 卸载
 
-获得命令提示信息。
+从项目中卸载SDK。
 
 ```
-
+composer remove chatopera/sdk
 ```
 
 ## 更多SDK
