@@ -2,7 +2,7 @@
     "name": "chatopera/sdk",
     "description": "Chatopera企业聊天机器人",
     "type": "library",
-    "license": "Chatopera",
+    "license": "proprietary",
     "keywords" : ["chatbot"],
     "version": "0.0.1",
     "homepage" : "https://github.com/chatopera/chatopera-php-sdk",
