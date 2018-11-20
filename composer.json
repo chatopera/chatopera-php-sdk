@@ -12,9 +12,6 @@
             "email": "hain@chatopera.com"
         }
     ],
-    "autoload" : {
-        "psr-0" : {"chatopera\\" : "src/chatopera/"}
-    },
     "repositories": [
         {
             "type": "vcs",
