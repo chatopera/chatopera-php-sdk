@@ -131,7 +131,7 @@ print_r($chatbot->detail());
   </a>
 </p>
 
-【提示】**更多接口介绍请访问[SDK文档](https://github.com/chatopera/chatopera-php-sdk/wiki/API%E6%96%87%E6%A1%A3)。**
+【提示】**更多接口介绍请访问[API文档](https://chatopera.github.io/chatopera-php-sdk/)。**
 
 ## 贡献
 
