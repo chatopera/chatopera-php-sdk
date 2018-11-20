@@ -4,12 +4,10 @@
   </p>
   
   
-# [chatopera-sample-php](https://github.com/chatopera/chatopera-sample-php)
-企业聊天机器人-PHP端示例程序
+# [chatopera-php-sdk](https://github.com/chatopera/chatopera-sample-php)
+企业聊天机器人-PHP开发工具包
 
 本教程介绍如何使用Chatopera机器人开发者平台的[PHP SDK]()与机器人进行集成，阅读本教程需要20分钟时间。
-
-[获取源码](#获取源码)
 
 [安装](#安装)
 
@@ -23,18 +21,16 @@
 
 [开源许可协议](#开源许可协议)
 
-## 获取源码
-
-```
-git clone https://github.com/chatopera/chatopera-sample-php.git
-```
 
 ## 安装
 
-```
-cd chatopera-sample-php
+[*composer*](https://getcomposer.org)是一个优秀到PHP项目包管理工具，Chatopera PHP SDK可通过composer直接下载。
 
 ```
+composer require chatopera/sdk
+```
+
+如果项目不使用[*composer*](https://getcomposer.org)管理，那么可直接下载安装[chatopera/chatbot.php](https://github.com/chatopera/chatopera-php-sdk/blob/master/src/chatopera/chatbot.php)文件到项目中。
 
 ## 创建机器人
 
