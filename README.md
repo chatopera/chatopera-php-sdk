@@ -92,7 +92,6 @@ composer require chatopera/sdk
 
 集成机器人服务的方式是通过SDK，每个机器人实例需要通过*ClientId*和*Secret*初始化，完成认证和授权。打开机器人【设置】页面，拷贝*ClientId*和*Secret*。
 
-
 <p align="center">
   <b>显示Secret</b><br>
   <a href="http://bot.chatopera.com/" target="_blank">
@@ -127,7 +126,7 @@ print_r($chatbot->detail());
 <p align="center">
   <b>返回结果示例</b><br>
   <a href="http://bot.chatopera.com/" target="_blank">
-      <img src="https://user-images.githubusercontent.com/3538629/48771009-177fd480-ecfb-11e8-9ce5-fa2a8adeea27.png" width="800">
+      <img src="https://user-images.githubusercontent.com/3538629/48771009-177fd480-ecfb-11e8-9ce5-fa2a8adeea27.png" width="400">
   </a>
 </p>
 
