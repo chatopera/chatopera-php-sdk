@@ -4,7 +4,7 @@
     "type": "library",
     "license": "proprietary",
     "keywords" : ["chatbot"],
-    "version": "0.0.2",
+    "version": "0.0.8",
     "homepage" : "https://github.com/chatopera/chatopera-php-sdk",
     "authors": [
         {
@@ -20,6 +20,11 @@
     ],
     "require" : {
         "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Chatopera\\SDK\\": "src/chatopera/sdk/"
+        }
     },
     "minimum-stability": "stable",
     "require-dev": {
