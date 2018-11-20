@@ -4,7 +4,7 @@
   </p>
   
   
-# [chatopera-php-sdk](https://github.com/chatopera/chatopera-sample-php)
+# [chatopera-php-sdk](https://github.com/chatopera/chatopera-php-sdk)
 企业聊天机器人-PHP开发工具包
 
 本教程介绍如何使用Chatopera机器人开发者平台的[PHP SDK]()与机器人进行集成，阅读本教程需要20分钟时间。
@@ -30,7 +30,7 @@
 composer require chatopera/sdk
 ```
 
-如果项目不使用[*composer*](https://getcomposer.org)管理，那么可直接下载安装[chatopera/chatbot.php](https://github.com/chatopera/chatopera-php-sdk/blob/master/src/chatopera/chatbot.php)文件到项目中。
+【注意】**如果项目不使用[*composer*](https://getcomposer.org)管理，那么可直接下载安装[Chatbot.php](https://github.com/chatopera/chatopera-php-sdk/blob/master/src/chatopera/sdk/Chatbot.php)文件到项目中。**
 
 ## 创建机器人
 
@@ -103,32 +103,43 @@ composer require chatopera/sdk
 
 ## 执行示例程序
 
-假设您已经准备好**ClientId**和**Secret**了，进入项目路径然后执行下面命令。
+假设您已经:
 
-```
-git clone https://github.com/chatopera/chatopera-php-sdk.git
-cd chatopera-php-sdk
-# 使用 clientId 和 Secret 修改测试文件，并执行 
-php test/ChatbotTest.php
+1) 准备好**ClientId**和**Secret**了；
+
+2) 安装了[chatopera/sdk](https://packagist.org/packages/chatopera/sdk)，
+
+那么，可以用以下代码测试。
+
+
+```php
+<?php
+
+include_once __DIR__ . "/vendor/autoload.php";
+
+$appId = "YOUR CLIENT ID";
+$secret = "YOUR SECRET";
+
+$chatbot = new Chatopera\SDK\Chatbot($appId, $secret);
+print_r($chatbot->detail());
 ```
 
 <p align="center">
-  <b>与机器人对话</b><br>
+  <b>返回结果示例</b><br>
   <a href="http://bot.chatopera.com/" target="_blank">
-      <img src="https://user-images.githubusercontent.com/3538629/48044246-edd89080-e1c5-11e8-9a28-ebb65dc496da.png" width="800">
+      <img src="https://user-images.githubusercontent.com/3538629/48771009-177fd480-ecfb-11e8-9ce5-fa2a8adeea27.png" width="800">
   </a>
 </p>
 
+【提示】**更多接口介绍请访问[SDK文档](https://github.com/chatopera/chatopera-php-sdk/wiki/API%E6%96%87%E6%A1%A3)。**
 
-## 程序介绍
+## 贡献
 
-[index.js](https://github.com/chatopera/chatopera-sample-node/blob/master/index.js)是主要程序脚本，核心如下：
+单元测试
 
 ```
-
+./vendor/bin/phpunit --bootstrap vendor/autoload.php test/ChatbotTest.php
 ```
-
-更多接口介绍请访问[SDK文档]()。
 
 
 ## 卸载
