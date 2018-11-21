@@ -41,6 +41,10 @@ class Chatbot {
      */
     private function generate($clientId, $secret, $method, $path)
     {
+
+        if($clientId == null || $secret == null)
+            return null;
+
         $timestamp = time();
         $random = rand(1000000000, 9999999999);
         $signature = hash_hmac('sha1', $clientId.$timestamp.$random.$method.$path, $secret);
@@ -365,7 +369,7 @@ class Chatbot {
      * @return mixed
      * @throws Exception
      */
-    public function profile($userId){
+    public function user($userId){
         $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/'.$userId.'/profile';
         $service_url = $this->baseUrl . $service_path;
         $service_method = "POST";

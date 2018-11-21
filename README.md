@@ -130,7 +130,19 @@ print_r($chatbot->detail());
   </a>
 </p>
 
-【提示】**更多接口介绍请访问[API文档](https://chatopera.github.io/chatopera-php-sdk/classes/Chatopera.SDK.Chatbot.html)。**
+
+接口概述
+
+```
+chatbot.detail
+chatbot.faq # 检索知识库
+chatbot.conversation # 检索多轮对话
+chatbot.users # 检索用户列表
+chatbot.user # 获得用户详情，包括用户意向分类
+chatbot.chats # 用户聊天历史
+```
+
+【提示】**更多接口介绍请访问[API文档](https://chatopera.github.io/chatopera-php-sdk/classes/Chatopera.SDK.Chatbot.html)。各接口的返回值详细描述请访问[开发者平台文档中心](https://docs.chatopera.com/chatbot-platform.html)。**
 
 ## 贡献
 
