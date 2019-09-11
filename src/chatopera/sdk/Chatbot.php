@@ -405,7 +405,7 @@ class Chatbot
     /**
      * 创建意图session
      */
-    public function clauseSession($uid, $channel)
+    public function intentSession($uid, $channel)
     {
         $service_path = '/api/v1/chatbot/' . $this->clientId . '/clause/prover/session';
         $service_url = $this->baseUrl . $service_path;
@@ -443,7 +443,7 @@ class Chatbot
     /**
      * 获取意图session详情
      */
-    public function clauseSessionDetail($sessionId)
+    public function intentSessionDetail($sessionId)
     {
         $service_path = '/api/v1/chatbot/' . $this->clientId . '/clause/prover/session/' . $sessionId;
         $service_url = $this->baseUrl . $service_path;
@@ -474,7 +474,7 @@ class Chatbot
     /**
      * 意图对话
      */
-    public function clauseChat($sessionId, $uid, $textMessage)
+    public function intentChat($sessionId, $uid, $textMessage)
     {
         $service_path = '/api/v1/chatbot/' . $this->clientId . '/clause/prover/chat';
         $service_url = $this->baseUrl . $service_path;
