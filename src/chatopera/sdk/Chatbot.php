@@ -1,20 +1,21 @@
 <?php
 /**
  * Chatopera 开发者平台 PHP SDK
- *	@Author: Hai Liang Wang
+ *    @Author: Hai Liang Wang
  *  @Company: 北京华夏春松科技有限公司
  *  All right reserved.
  */
 
 namespace Chatopera\SDK;
-use Exception;
 
+use Exception;
 
 /**
  * Class Chatbot 企业聊天机器人
  * @package Chatopera\SDK
  */
-class Chatbot {
+class Chatbot
+{
 
     private $baseUrl = "https://bot.chatopera.com"; // 服务地址
     private $clientId; // 机器人 ClientId
@@ -42,17 +43,18 @@ class Chatbot {
     private function generate($clientId, $secret, $method, $path)
     {
 
-        if($clientId == null || $secret == null)
+        if ($clientId == null || $secret == null) {
             return null;
+        }
 
         $timestamp = time();
         $random = rand(1000000000, 9999999999);
-        $signature = hash_hmac('sha1', $clientId.$timestamp.$random.$method.$path, $secret);
-        $json =json_encode(array(
+        $signature = hash_hmac('sha1', $clientId . $timestamp . $random . $method . $path, $secret);
+        $json = json_encode(array(
             'appId' => $clientId,
             'timestamp' => $timestamp,
             'random' => $random,
-            'signature' => $signature
+            'signature' => $signature,
         ));
 
         return base64_encode($json);
@@ -63,7 +65,8 @@ class Chatbot {
      * @return mixed
      * @throws Exception
      */
-    public function detail(){
+    public function detail()
+    {
         $service_path = '/api/v1/chatbot/' . $this->clientId;
         $service_url = $this->baseUrl . $service_path;
         $service_method = "GET";
@@ -73,7 +76,7 @@ class Chatbot {
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
-            "Accept: application/json"
+            "Accept: application/json",
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -83,7 +86,7 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
@@ -97,7 +100,8 @@ class Chatbot {
      * @return mixed
      * @throws Exception
      */
-    public function conversation($userId, $textMessage){
+    public function conversation($userId, $textMessage)
+    {
         $service_path = '/api/v1/chatbot/' . $this->clientId . '/conversation/query';
         $service_url = $this->baseUrl . $service_path;
         $service_method = "POST";
@@ -107,14 +111,14 @@ class Chatbot {
         $data = json_encode(array(
             "fromUserId" => $userId,
             "textMessage" => $textMessage,
-            "isDebug" => false
+            "isDebug" => false,
         ));
 
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
             "Accept: application/json",
-            "Content-Length: ".strlen($data)
+            "Content-Length: " . strlen($data),
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -125,7 +129,7 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
@@ -139,7 +143,8 @@ class Chatbot {
      * @return mixed
      * @throws Exception
      */
-    public function faq($userId, $query){
+    public function faq($userId, $query)
+    {
         $service_path = '/api/v1/chatbot/' . $this->clientId . '/faq/query';
         $service_url = $this->baseUrl . $service_path;
         $service_method = "POST";
@@ -148,14 +153,14 @@ class Chatbot {
 
         $data = json_encode(array(
             "fromUserId" => $userId,
-            "query" => $query
+            "query" => $query,
         ));
 
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
             "Accept: application/json",
-            "Content-Length: ".strlen($data)
+            "Content-Length: " . strlen($data),
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -166,13 +171,12 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
         return json_decode($curl_response, true);
     }
-
 
     /**
      * 查询用户列表
@@ -182,8 +186,9 @@ class Chatbot {
      * @return mixed
      * @throws Exception
      */
-    public function users($limit = 50, $page = 1, $sortby = "-lasttime"){
-        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users?page='.$page.'&limit='.$limit."&sortby=".$sortby;
+    public function users($limit = 50, $page = 1, $sortby = "-lasttime")
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users?page=' . $page . '&limit=' . $limit . "&sortby=" . $sortby;
         $service_url = $this->baseUrl . $service_path;
         $service_method = "GET";
         $request = curl_init($service_url);
@@ -192,7 +197,7 @@ class Chatbot {
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
-            "Accept: application/json"
+            "Accept: application/json",
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -202,13 +207,12 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
         return $this->purge(json_decode($curl_response, true));
     }
-
 
     /**
      * 查看一个用户的聊天历史
@@ -219,8 +223,9 @@ class Chatbot {
      * @return mixed
      * @throws Exception
      */
-    public function chats($userId, $limit = 50, $page = 1, $sortby = '-lasttime'){
-        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/'.$userId.'/chats?page='.$page.'&limit='.$limit."&sortby=".$sortby;
+    public function chats($userId, $limit = 50, $page = 1, $sortby = '-lasttime')
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/' . $userId . '/chats?page=' . $page . '&limit=' . $limit . "&sortby=" . $sortby;
         $service_url = $this->baseUrl . $service_path;
         $service_method = "GET";
         $request = curl_init($service_url);
@@ -229,7 +234,7 @@ class Chatbot {
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
-            "Accept: application/json"
+            "Accept: application/json",
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -239,7 +244,7 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
@@ -252,8 +257,9 @@ class Chatbot {
      * @return bool 执行是否成功
      * @throws Exception
      */
-    public function mute($userId){
-        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/'.$userId.'/mute';
+    public function mute($userId)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/' . $userId . '/mute';
         $service_url = $this->baseUrl . $service_path;
         $service_method = "POST";
         $request = curl_init($service_url);
@@ -262,7 +268,7 @@ class Chatbot {
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
-            "Accept: application/json"
+            "Accept: application/json",
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -272,18 +278,17 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
         $result = json_decode($curl_response, true);
 
-        if(isset($result['rc']) && ($result['rc'] == 0)){
+        if (isset($result['rc']) && ($result['rc'] == 0)) {
             return true;
         }
         return false;
     }
-
 
     /**
      * 取消屏蔽用户
@@ -291,8 +296,9 @@ class Chatbot {
      * @return bool 执行是否成功
      * @throws Exception
      */
-    public function unmute($userId){
-        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/'.$userId.'/unmute';
+    public function unmute($userId)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/' . $userId . '/unmute';
         $service_url = $this->baseUrl . $service_path;
         $service_method = "POST";
         $request = curl_init($service_url);
@@ -301,7 +307,7 @@ class Chatbot {
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
-            "Accept: application/json"
+            "Accept: application/json",
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -311,18 +317,17 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
         $result = json_decode($curl_response, true);
 
-        if(isset($result['rc']) && ($result['rc'] == 0)){
+        if (isset($result['rc']) && ($result['rc'] == 0)) {
             return true;
         }
         return false;
     }
-
 
     /**
      * 检测用户是否被屏蔽
@@ -330,8 +335,9 @@ class Chatbot {
      * @return bool 用户是否被屏蔽
      * @throws Exception
      */
-    public function ismute($userId){
-        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/'.$userId.'/ismute';
+    public function ismute($userId)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/' . $userId . '/ismute';
         $service_url = $this->baseUrl . $service_path;
         $service_method = "POST";
         $request = curl_init($service_url);
@@ -340,7 +346,7 @@ class Chatbot {
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
-            "Accept: application/json"
+            "Accept: application/json",
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -350,14 +356,13 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
         $result = json_decode($curl_response, true);
 
-
-        if(isset($result['rc']) && ($result['rc'] == 0)){
+        if (isset($result['rc']) && ($result['rc'] == 0)) {
             return $result['data']['mute'];
         }
         throw new Exception("Unexpected Chatbot Response.");
@@ -369,8 +374,9 @@ class Chatbot {
      * @return mixed
      * @throws Exception
      */
-    public function user($userId){
-        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/'.$userId.'/profile';
+    public function user($userId)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/users/' . $userId . '/profile';
         $service_url = $this->baseUrl . $service_path;
         $service_method = "POST";
         $request = curl_init($service_url);
@@ -379,7 +385,7 @@ class Chatbot {
         $headers = array(
             "Content-Type: application/json",
             "Authorization: $token",
-            "Accept: application/json"
+            "Accept: application/json",
         );
 
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
@@ -389,30 +395,144 @@ class Chatbot {
 
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
+        if ($http_code != 200) {
             throw new Exception("Wrong Chatbot Response.");
         }
 
         return json_decode($curl_response, true);
     }
 
+    /**
+     * 创建意图session
+     */
+    public function clauseSession($uid, $channel)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/clause/prover/session';
+        $service_url = $this->baseUrl . $service_path;
+        $service_method = "POST";
+        $request = curl_init($service_url);
+        $token = $this->generate($this->clientId, $this->clientSecret, $service_method, $service_path);
+
+        $data = json_encode(array(
+            "uid" => $uid,
+            "channel" => $channel,
+        ));
+
+        $headers = array(
+            "Content-Type: application/json",
+            "Authorization: $token",
+            "Accept: application/json",
+            "Content-Length: " . strlen($data),
+        );
+
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, $service_method);
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($request, CURLOPT_POSTFIELDS, $data);
+        $curl_response = curl_exec($request);
+
+        $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+        if ($http_code != 200) {
+            throw new Exception("Wrong Chatbot Response.");
+        }
+
+        return json_decode($curl_response, true);
+    }
+
+    /**
+     * 获取意图session详情
+     */
+    public function clauseSessionDetail($sessionId)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/clause/prover/session/' . $sessionId;
+        $service_url = $this->baseUrl . $service_path;
+        $service_method = "GET";
+        $request = curl_init($service_url);
+        $token = $this->generate($this->clientId, $this->clientSecret, $service_method, $service_path);
+
+        $headers = array(
+            "Content-Type: application/json",
+            "Authorization: $token",
+            "Accept: application/json",
+        );
+
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, $service_method);
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+        $curl_response = curl_exec($request);
+
+        $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+        if ($http_code != 200) {
+            throw new Exception("Wrong Chatbot Response.");
+        }
+
+        return $this->purge(json_decode($curl_response, true));
+    }
+
+    /**
+     * 意图对话
+     */
+    public function clauseChat($sessionId, $uid, $textMessage)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/clause/prover/chat';
+        $service_url = $this->baseUrl . $service_path;
+        $service_method = "POST";
+        $request = curl_init($service_url);
+        $token = $this->generate($this->clientId, $this->clientSecret, $service_method, $service_path);
+
+        $data = json_encode(array(
+            "fromUserId" => $uid,
+            "session" => array(
+                "id" => $sessionId,
+            ),
+            "message" => array(
+                "textMessage" => $textMessage,
+            ),
+        ));
+
+        $headers = array(
+            "Content-Type: application/json",
+            "Authorization: $token",
+            "Accept: application/json",
+            "Content-Length: " . strlen($data),
+        );
+
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, $service_method);
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($request, CURLOPT_POSTFIELDS, $data);
+        $curl_response = curl_exec($request);
+
+        $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+        if ($http_code != 200) {
+            throw new Exception("Wrong Chatbot Response.");
+        }
+
+        return json_decode($curl_response, true);
+    }
 
     /**
      * 删除内部ID
      * @param $resp
      * @return mixed
      */
-    private function purge($resp){
-        if(isset($resp["data"]) && is_array($resp["data"])){
-            foreach ($resp["data"] as $key => $value){
+    private function purge($resp)
+    {
+        if (isset($resp["data"]) && is_array($resp["data"])) {
+            foreach ($resp["data"] as $key => $value) {
                 // data: sublist
-                if(is_array($resp["data"][$key])){
-                    foreach ($resp["data"][$key] as $key2 => $value2){
-                        if($key2 == "chatbotID")
+                if (is_array($resp["data"][$key])) {
+                    foreach ($resp["data"][$key] as $key2 => $value2) {
+                        if ($key2 == "chatbotID") {
                             unset($resp["data"][$key][$key2]);
+                        }
+
                     }
                 } else { // data: plain object
-                    if($key == "chatbotID"){
+                    if ($key == "chatbotID") {
                         unset($resp["data"][$key]);
                     }
                 }
