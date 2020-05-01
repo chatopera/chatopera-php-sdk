@@ -1,34 +1,36 @@
 {
-    "name": "chatopera/sdk",
-    "description": "Chatopera企业聊天机器人",
-    "type": "library",
-    "license": "proprietary",
-    "keywords" : ["chatbot"],
-    "version": "1.1.0",
-    "homepage" : "https://github.com/chatopera/chatopera-php-sdk",
-    "authors": [
-        {
-            "name": "Hai Liang Wang",
-            "email": "hain@chatopera.com"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "http://github.com/chatopera/chatopera-php-sdk"
-        }
-    ],
-    "require" : {
-        "php": ">=5.3.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "Chatopera\\SDK\\": "src/chatopera/sdk/"
-        }
-    },
-    "minimum-stability": "stable",
-    "require-dev": {
-        "phpunit/phpunit": "^5",
-        "phpdocumentor/phpdocumentor": "2.*"
+  "name": "chatopera/sdk",
+  "description": "Chatopera企业聊天机器人",
+  "type": "library",
+  "license": "proprietary",
+  "keywords": [
+    "chatbot"
+  ],
+  "version": "1.2.0",
+  "homepage": "https://github.com/chatopera/chatopera-php-sdk",
+  "authors": [
+    {
+      "name": "Hai Liang Wang",
+      "email": "hain@chatopera.com"
     }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "http://github.com/chatopera/chatopera-php-sdk"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Chatopera\\SDK\\": "src/chatopera/sdk/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require-dev": {
+    "phpunit/phpunit": "^5",
+    "phpdocumentor/phpdocumentor": "2.*"
+  }
 }
