@@ -6,6 +6,9 @@ include_once __DIR__ . "/../src/chatopera/sdk/Chatbot.php";
 use chatopera\sdk\Chatbot;
 use PHPUnit\Framework\TestCase;
 
+$appId = "appid-xxx";
+$secret = "secret-xxx";
+
 final class ChatbotTest extends TestCase
 {
     // public function testGenerateCredentails()
@@ -19,8 +22,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotDetail()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->detail();
         print_r($resp);
@@ -33,8 +36,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotConversation()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->conversation("phpsdk", "你好");
         print_r($resp);
@@ -47,8 +50,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotFaq()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->faq("phpsdk", "机器人怎么购买");
         print_r($resp);
@@ -61,8 +64,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotUsers()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->users(50, 1);
         print_r($resp);
@@ -75,8 +78,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotUserChats()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->chats('phpsdk', 10);
         print_r($resp);
@@ -89,8 +92,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotMute()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->mute('phpsdk');
         print_r($resp);
@@ -116,8 +119,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotIntentSession()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->intentSession('phpsdk', 'phpchannel');
         print_r($resp);
@@ -130,8 +133,8 @@ final class ChatbotTest extends TestCase
 
     public function testChatbotIntentSessionDetail()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->intentSessionDetail('12C168F19B886CD7E0B3686100000000');
         print_r($resp);
@@ -144,10 +147,40 @@ final class ChatbotTest extends TestCase
 
     public function testIntentChat()
     {
-        $appId = "appid-xxx";
-        $secret = "secret-xxx";
+        global $appId, $secret;
+
         $chatbot = new Chatbot($appId, $secret);
         $resp = $chatbot->intentSessionDetail('12C168F19B886CD7E0B3686100000000', 'phpsdk', '我想打车');
+        print_r($resp);
+        if (isset($resp['rc']) && ($resp['rc'] == 0)) {
+            print "pass";
+        } else {
+            throw new Exception("wrong response.");
+        }
+    }
+
+    public function testPsychChat()
+    {
+        global $appId, $secret;
+
+        $chatbot = new Chatbot($appId, $secret);
+        $resp = $chatbot->psychChat('test', 'nodejs', 'uid001', '确定自己是否有抑郁倾向，想要知道自己当下该怎么办');
+        print('testPsychChat');
+        print_r($resp);
+        if (isset($resp['rc']) && ($resp['rc'] == 0)) {
+            print "pass";
+        } else {
+            throw new Exception("wrong response.");
+        }
+    }
+
+    public function testPsychSearch()
+    {
+        global $appId, $secret;
+
+        $chatbot = new Chatbot($appId, $secret);
+        $resp = $chatbot->psychSearch('确定自己是否有抑郁倾向，想要知道自己当下该怎么办', 0.2);
+        print('testPsychSearch');
         print_r($resp);
         if (isset($resp['rc']) && ($resp['rc'] == 0)) {
             print "pass";

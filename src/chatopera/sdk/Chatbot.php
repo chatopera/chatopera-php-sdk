@@ -515,6 +515,84 @@ class Chatbot
     }
 
     /**
+     * 心理咨询聊天
+     */
+    public function psychChat($channel, $channelId, $userId, $textMessage)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/skills/psych/chat';
+        $service_url = $this->baseUrl . $service_path;
+        $service_method = "POST";
+        $request = curl_init($service_url);
+        $token = $this->generate($this->clientId, $this->clientSecret, $service_method, $service_path);
+
+        $data = json_encode(array(
+            "channel" => $channel,
+            "channelId" => $channelId,
+            "userId" => $userId,
+            "textMessage" => $textMessage,
+        ));
+
+        $headers = array(
+            "Content-Type: application/json",
+            "Authorization: $token",
+            "Accept: application/json",
+            "Content-Length: " . strlen($data),
+        );
+
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, $service_method);
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($request, CURLOPT_POSTFIELDS, $data);
+        $curl_response = curl_exec($request);
+
+        $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+        if ($http_code != 200) {
+            throw new Exception("Wrong Chatbot Response.");
+        }
+
+        return json_decode($curl_response, true);
+    }
+
+    /**
+     * 心理咨询查询
+     */
+    public function psychSearch($query, $threshold = 0.2)
+    {
+        $service_path = '/api/v1/chatbot/' . $this->clientId . '/skills/psych/search';
+        $service_url = $this->baseUrl . $service_path;
+        $service_method = "POST";
+        $request = curl_init($service_url);
+        $token = $this->generate($this->clientId, $this->clientSecret, $service_method, $service_path);
+
+        $data = json_encode(array(
+            "query" => $query,
+            "threshold" => $threshold,
+        ));
+
+        $headers = array(
+            "Content-Type: application/json",
+            "Authorization: $token",
+            "Accept: application/json",
+            "Content-Length: " . strlen($data),
+        );
+
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, $service_method);
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($request, CURLOPT_POSTFIELDS, $data);
+        $curl_response = curl_exec($request);
+
+        $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+        if ($http_code != 200) {
+            throw new Exception("Wrong Chatbot Response.");
+        }
+
+        return json_decode($curl_response, true);
+    }
+
+    /**
      * 删除内部ID
      * @param $resp
      * @return mixed
