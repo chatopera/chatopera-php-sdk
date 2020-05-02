@@ -7,7 +7,7 @@
 # [chatopera-php-sdk](https://github.com/chatopera/chatopera-php-sdk)
 企业聊天机器人-PHP开发工具包
 
-本教程介绍如何使用Chatopera机器人开发者平台的[PHP SDK]()与机器人进行集成，阅读本教程需要20分钟时间。
+本教程介绍如何使用 Chatopera 机器人开发者平台的[PHP SDK]()与机器人进行集成，阅读本教程需要 20 分钟时间。
 
 [安装](#安装)
 
@@ -17,20 +17,19 @@
 
 [帮助](#帮助)
 
-[更多SDK](#更多SDK)
+[更多 SDK](#更多SDK)
 
 [开源许可协议](#开源许可协议)
 
-
 ## 安装
 
-[*composer*](https://getcomposer.org)是一个优秀到PHP项目包管理工具，Chatopera PHP SDK可通过composer直接下载。
+[_composer_](https://getcomposer.org)是一个优秀到 PHP 项目包管理工具，Chatopera PHP SDK 可通过 composer 直接下载，包文件发布在[packagist](https://packagist.org/packages/chatopera/sdk)。
 
 ```
 composer require chatopera/sdk
 ```
 
-【注意】**如果项目不使用[*composer*](https://getcomposer.org)管理，那么可直接下载安装[Chatbot.php](https://github.com/chatopera/chatopera-php-sdk/blob/master/src/chatopera/sdk/Chatbot.php)文件到项目中。**
+【注意】**如果项目不使用[_composer_](https://getcomposer.org)管理，那么可直接下载安装[Chatbot.php](https://github.com/chatopera/chatopera-php-sdk/blob/master/src/chatopera/sdk/Chatbot.php)文件到项目中。**
 
 ## 创建机器人
 
@@ -41,7 +40,6 @@ composer require chatopera/sdk
   </a>
 </p>
 
-
 ### 点击“立即使用”
 
 第一登录输入“邮箱”和“密码”，点击“回车键”，完成账户创建。
@@ -50,19 +48,17 @@ composer require chatopera/sdk
 
 点击“创建机器人”，并填入下面各项：
 
-| 项目 | 值 | 描述 |
-| --- | --- | --- |
-| 机器人名称 | 小松 | 机器人的名字 |
-| 描述 | 机器人示例 | 机器人的描述 |
-| 语言 | zh_CN | 机器人的语言，目前支持中文(zh_CN)和英文(en_US) |
+| 项目       | 值         | 描述                                           |
+| ---------- | ---------- | ---------------------------------------------- |
+| 机器人名称 | 小松       | 机器人的名字                                   |
+| 描述       | 机器人示例 | 机器人的描述                                   |
+| 语言       | zh_CN      | 机器人的语言，目前支持中文(zh_CN)和英文(en_US) |
 
 【提示】其它项如兜底回复，问候语可以在创建后，设置页面修改。
-
 
 ### 下载知识库文件
 
 下载知识库示例文件[保全作业中常见问题.xlsx](https://github.com/chatopera/chatbot-sales/raw/master/%E4%BF%9D%E9%99%A9/faq/%E4%BF%9D%E5%85%A8%E4%BD%9C%E4%B8%9A%E4%B8%AD%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.xlsx)，保存文件名为*保全作业中常见问题.xlsx*。
-
 
 ### 导入知识库
 
@@ -84,13 +80,13 @@ composer require chatopera/sdk
   </a>
 </p>
 
-**输入：** 保全作业中常见问题 
+**输入：** 保全作业中常见问题
 
 确认得到回复。
 
 ### 获取*ClientId*和*Secret*
 
-集成机器人服务的方式是通过SDK，每个机器人实例需要通过*ClientId*和*Secret*初始化，完成认证和授权。打开机器人【设置】页面，拷贝*ClientId*和*Secret*。
+集成机器人服务的方式是通过 SDK，每个机器人实例需要通过*ClientId*和*Secret*初始化，完成认证和授权。打开机器人【设置】页面，拷贝*ClientId*和*Secret*。
 
 <p align="center">
   <b>显示Secret</b><br>
@@ -99,17 +95,15 @@ composer require chatopera/sdk
   </a>
 </p>
 
-
 ## 执行示例程序
 
 假设您已经:
 
-1) 准备好**ClientId**和**Secret**了；
+1. 准备好**ClientId**和**Secret**了；
 
-2) 安装了[chatopera/sdk](https://packagist.org/packages/chatopera/sdk)，
+2. 安装了[chatopera/sdk](https://packagist.org/packages/chatopera/sdk)，
 
 那么，可以用以下代码测试。
-
 
 ```php
 <?php
@@ -130,7 +124,6 @@ print_r($chatbot->detail());
   </a>
 </p>
 
-
 接口概述
 
 ```
@@ -142,7 +135,7 @@ chatbot.user # 获得用户详情，包括用户意向分类
 chatbot.chats # 用户聊天历史
 ```
 
-【提示】**更多接口介绍请访问[API文档](https://chatopera.github.io/chatopera-php-sdk/classes/Chatopera.SDK.Chatbot.html)。各接口的返回值详细描述请访问[开发者平台文档中心](https://docs.chatopera.com/chatbot-platform.html)。**
+【提示】**更多接口介绍请访问[API 文档](https://chatopera.github.io/chatopera-php-sdk/classes/Chatopera.SDK.Chatbot.html)。各接口的返回值详细描述请访问[开发者平台文档中心](https://docs.chatopera.com/chatbot-platform.html)。**
 
 ## 贡献
 
@@ -152,16 +145,15 @@ chatbot.chats # 用户聊天历史
 ./vendor/bin/phpunit --bootstrap vendor/autoload.php test/ChatbotTest.php
 ```
 
-
 ## 卸载
 
-从项目中卸载SDK。
+从项目中卸载 SDK。
 
 ```
 composer remove chatopera/sdk
 ```
 
-## 更多SDK
+## 更多 SDK
 
 <p align="center">
   <b>集成面板</b><br>
