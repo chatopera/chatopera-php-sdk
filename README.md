@@ -58,18 +58,33 @@ composer require chatopera/sdk
 
 ### 下载知识库文件
 
-下载知识库示例文件[保全作业中常见问题.xlsx](https://github.com/chatopera/chatbot-sales/raw/master/%E4%BF%9D%E9%99%A9/faq/%E4%BF%9D%E5%85%A8%E4%BD%9C%E4%B8%9A%E4%B8%AD%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.xlsx)，保存文件名为*保全作业中常见问题.xlsx*。
+下载知识库示例文件[chatopera_faq_samples.json](https://static-public.chatopera.com/bot/faq/chatopera_faq_samples.json)，保存文件名为*chatopera_faq_samples.json*。
+
+<p align="center">
+  <b>知识库文件格式</b><br>
+      <img src="https://user-images.githubusercontent.com/3538629/88005551-396ad380-cb3c-11ea-8318-e70615bec281.png" width="500">
+</p>
+
+在该示例文件中，用 JSON 数组的形式存储了 100 个问答对，字段含义如下：
+
+| key              | type     | required | description                                                                                                                    |
+| ---------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| categories       | [string] | false    | 分类名称，支持层级比如 `["一级", "二级"]`，服务器端自动创建对应分类                                                            |
+| enabled          | boolean  | true     | 是否启用，代表该问答对导入后是否支持来访者检索                                                                                 |
+| post             | string   | true     | 问答对的标准问                                                                                                                 |
+| replies          | [object] | true     | 问答对的回答，数组长度大于 0, `content`是文本内容，`rtype`为`plain`表示`content`为纯文本; `rtype`为`html`表示`content`为富文本 |
+| similarQuestions | [string] | false    | 问答对里的相似问                                                                                                               |
 
 ### 导入知识库
 
 <p align="center">
   <b>上传知识库文件</b><br>
   <a href="http://bot.chatopera.com/" target="_blank">
-      <img src="https://user-images.githubusercontent.com/3538629/48044619-c97db380-e1c7-11e8-841b-b00ca6e29185.png" width="500">
+      <img src="https://user-images.githubusercontent.com/3538629/88005421-f7da2880-cb3b-11ea-9ceb-bb132652963d.png" width="500">
   </a>
 </p>
 
-选择*保全作业中常见问题.xlsx*，这时，会显示问答对列表，点击“提交”，在进度条完成后，知识库导入成功。
+选择*chatopera_faq_samples.json*，这时，会显示问答对列表，点击“提交”，在进度条完成后，知识库导入成功。
 
 ### 测试知识库
 
@@ -80,7 +95,7 @@ composer require chatopera/sdk
   </a>
 </p>
 
-**输入：** 保全作业中常见问题
+**输入：** 下雨天在屋外烧电焊注意什么
 
 确认得到回复。
 
@@ -114,7 +129,7 @@ $appId = "YOUR CLIENT ID";
 $secret = "YOUR SECRET";
 
 $chatbot = new Chatopera\SDK\Chatbot($appId, $secret);
-print_r($chatbot->detail());
+print_r($chatbot->command("GET", "/"));
 ```
 
 <p align="center">
@@ -124,18 +139,11 @@ print_r($chatbot->detail());
   </a>
 </p>
 
-接口概述
+## 接口概述
 
-```
-chatbot.detail
-chatbot.faq # 检索知识库
-chatbot.conversation # 检索多轮对话
-chatbot.users # 检索用户列表
-chatbot.user # 获得用户详情，包括用户意向分类
-chatbot.chats # 用户聊天历史
-```
+各接口的详细描述请访问[开发者平台文档中心](https://docs.chatopera.com/products/chatbot-platform/integration.html)。
 
-【提示】**更多接口介绍请访问[API 文档](https://chatopera.github.io/chatopera-php-sdk/classes/Chatopera.SDK.Chatbot.html)。各接口的返回值详细描述请访问[开发者平台文档中心](https://docs.chatopera.com/chatbot-platform.html)。**
+同时提供[PHP Docs](https://chatopera.github.io/chatopera-php-sdk/classes/Chatopera.SDK.Chatbot.html)为使用参考。
 
 ## 贡献
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Chatopera 开发者平台 PHP SDK
- *    @Author: Hai Liang Wang
+ *  @Author: Hai Liang Wang
  *  @Company: 北京华夏春松科技有限公司
  *  All right reserved.
  */
@@ -61,7 +61,15 @@ class Chatbot
         return base64_encode($json);
     }
 
-    public function command($method, $path, $payload = null)
+    /**
+     * 聊天机器人核心接口，API参考
+     * https://docs.chatopera.com/products/chatbot-platform/integration.html
+     * @param $method HTTP 方法
+     * @param $path URL 路径
+     * @param $body HTTP Request Body
+     * @return mixed
+     */
+    public function command($method, $path, $body = null)
     {
         $service_method = strtoupper($method);
         $service_path = '/api/v1/chatbot/' . $this->clientId . $path;
@@ -86,8 +94,8 @@ class Chatbot
         curl_setopt($request, CURLOPT_CUSTOMREQUEST, $service_method);
         curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
 
-        if (!empty($payload)) {
-            $data = json_encode($payload);
+        if (!empty($body)) {
+            $data = json_encode($body);
             array_push($headers, "Content-Length: " . strlen($data));
             curl_setopt($request, CURLOPT_POSTFIELDS, $data);
         }
@@ -107,6 +115,7 @@ class Chatbot
      * 查看机器人详情
      * @return mixed
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function detail()
     {
@@ -119,6 +128,7 @@ class Chatbot
      * @param $textMessage 问题
      * @return mixed
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function conversation($userId, $textMessage)
     {
@@ -135,6 +145,7 @@ class Chatbot
      * @param $query  问题
      * @return mixed
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function faq($userId, $query)
     {
@@ -151,6 +162,7 @@ class Chatbot
      * @param string $sortby 排序规则
      * @return mixed
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function users($limit = 50, $page = 1, $sortby = "-lasttime")
     {
@@ -165,6 +177,7 @@ class Chatbot
      * @param string $sortby 排序规则[-lasttime: 最后对话时间降序]
      * @return mixed
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function chats($userId, $limit = 50, $page = 1, $sortby = '-lasttime')
     {
@@ -176,6 +189,7 @@ class Chatbot
      * @param $userId 用户唯一标识
      * @return bool 执行是否成功
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function mute($userId)
     {
@@ -187,6 +201,7 @@ class Chatbot
      * @param $userId 用户唯一标识
      * @return bool 执行是否成功
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function unmute($userId)
     {
@@ -198,6 +213,7 @@ class Chatbot
      * @param $userId 用户唯一标识
      * @return bool 用户是否被屏蔽
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function ismute($userId)
     {
@@ -209,6 +225,7 @@ class Chatbot
      * @param $userId 用户唯一标识
      * @return mixed
      * @throws Exception
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function user($userId)
     {
@@ -217,6 +234,7 @@ class Chatbot
 
     /**
      * 创建意图session
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function intentSession($uid, $channel)
     {
@@ -228,6 +246,7 @@ class Chatbot
 
     /**
      * 获取意图session详情
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function intentSessionDetail($sessionId)
     {
@@ -236,6 +255,7 @@ class Chatbot
 
     /**
      * 意图对话
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function intentChat($sessionId, $uid, $textMessage)
     {
@@ -252,6 +272,7 @@ class Chatbot
 
     /**
      * 心理咨询聊天
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function psychChat($channel, $channelId, $userId, $textMessage)
     {
@@ -265,6 +286,7 @@ class Chatbot
 
     /**
      * 心理咨询查询
+     * @deprecated DeprecationWarning: use `Chatbot#command` API instead, removed in 2020-10
      */
     public function psychSearch($query, $threshold = 0.2)
     {
