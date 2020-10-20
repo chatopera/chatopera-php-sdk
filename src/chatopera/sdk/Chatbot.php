@@ -61,6 +61,50 @@ class Chatbot
         return base64_encode($json);
     }
 
+    public function arsRecognize($service_url, $body, $token)
+    {
+        $request = curl_init($service_url);
+        $headers = array(
+            $contentType,
+            "Authorization: $token",
+            "Accept: application/json",
+        );
+
+        $data = array(
+            'type' => $body['type'],
+            'nbest' => array_key_exists('nbest', $body) ? $body['nbest'] : 5,
+            'pos' => array_key_exists('pos', $body) ? $body['pos'] : 'false',
+            'fromUserId' => $body['fromUserId'],
+        );
+
+        $contentType = '';
+
+        if ($body->type == 'base64') {
+            $contentType = "Content-Type: application/json";
+            $data['data'] = $body->data;
+            curl_setopt($request, CURLOPT_POSTFIELDS, $data);
+        } else {
+            curl_setopt($request, CURLOPT_SAFE_UPLOAD, true);
+            $data['file'] = new \CURLFile(realpath($body['filepath']));
+            $post_body = $data;
+            curl_setopt($request, CURLOPT_POSTFIELDS, $post_body);
+        }
+
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($request, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($request, CURLOPT_HTTPHEADER, $headers);
+
+        $curl_response = curl_exec($request);
+
+        $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+        if ($http_code != 200) {
+            throw new Exception("Wrong Chatbot Response.");
+        }
+
+        return $this->purge(json_decode($curl_response, true));
+    }
+
     /**
      * 聊天机器人核心接口，API参考
      * https://docs.chatopera.com/products/chatbot-platform/integration.html
@@ -83,6 +127,11 @@ class Chatbot
         $service_url = $this->baseUrl . $service_path;
 
         $token = $this->generate($this->clientId, $this->clientSecret, $service_method, $service_path);
+
+        if ($path == '/asr/recognize') {
+            return $this->arsRecognize($service_url, $body, $token);
+        }
+
         $request = curl_init($service_url);
         $headers = array(
             "Content-Type: application/json",
