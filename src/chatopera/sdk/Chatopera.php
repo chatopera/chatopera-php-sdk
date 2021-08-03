@@ -8,11 +8,13 @@
 
 namespace Chatopera\SDK;
 
+use Exception;
+
 /**
- * Class ChatbotAdmin 管理企业聊天机器人
+ * Class Chatopera 管理企业聊天机器人
  * @package Chatopera\SDK
  */
-class ChatbotAdmin
+class Chatopera
 {
     private $baseUrl;
     private $accessToken;
@@ -35,7 +37,7 @@ class ChatbotAdmin
         }
 
         $service_url = $this->baseUrl . $service_path;
-        $token = $this->$accessToken;
+        $token = $this->accessToken;
 
         $request = curl_init($service_url);
         $headers = array(
@@ -59,9 +61,10 @@ class ChatbotAdmin
         $http_code = curl_getinfo($request, CURLINFO_HTTP_CODE);
 
         if ($http_code != 200) {
+            echo $curl_response;
             throw new Exception("Wrong Chatbot Response.");
         }
 
-        return $this->purge(json_decode($curl_response, true));
+        return json_decode($curl_response, true);
     }
 }
