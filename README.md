@@ -1,11 +1,10 @@
 # [Chatopera Php SDK](https://github.com/chatopera/chatopera-php-sdk)
 
----
+https://bot.chatopera.com
 
 低代码或无代码方式定制智能对话机器人！
 
-[Chatopera](https://www.chatopera.com/) 提供聊天机器人开发者平台，Chatopera SDK 用于在 Node.js 应用中集成[聊天机器人服务](https://bot.chatopera.com/)。
-
+[Chatopera](https://www.chatopera.com/) 提供聊天机器人开发者平台，Chatopera Php SDK 用于在 PHP 应用中集成[聊天机器人服务](https://bot.chatopera.com/)。
 
 本教程介绍如何使用 Chatopera 机器人开发者平台的[PHP SDK](https://packagist.org/packages/chatopera/sdk)与机器人进行集成，阅读本教程需要 20 分钟时间。
 
